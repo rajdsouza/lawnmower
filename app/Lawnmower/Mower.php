@@ -19,12 +19,11 @@ class Mower{
 	/*mowers current address*/
 	public $address;
 
-	public function __construct($address,$direction,$actions = array()){
-
-
-
-
+	public function __construct($address,$direction){
+            $this->setMowersAddress($address);
+            $this->setCurrentDirection($direction);
 	}
+        
         /**
          * Sets the movers current direction
          * @param type $direction
