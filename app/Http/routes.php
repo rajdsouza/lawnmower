@@ -29,3 +29,19 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+
+//Route::delete('/lawn/{id}', 'LawnController@deleteIndex');
+Route::get('/lawn/{id}', 'LawnController@getIndex');
+Route::post('/lawn', 'LawnController@postIndex');
+Route::post('/lawn/{id}/execute', 'LawnController@postExecute');
+Route::resource('lawn','LawnController',['only' => [
+    'destroy'
+]]);
+
+
+
+
+Route::resource('lawn.mower','MowersController',['only' => [
+    'destroy','store','show','update'
+]]);
