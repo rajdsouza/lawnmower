@@ -19,9 +19,14 @@ class Mower {
     /* mowers current address */
     public $address;
 
-    public function __construct($address, $direction) {
+
+    public $errors;
+
+    public function __construct($address, $direction, $blocksize) {
         $this->setMowersAddress($address);
         $this->setCurrentDirection($direction);
+        $this->setBlockSize($blocksize);
+        $error = "";
     }
 
     /**
