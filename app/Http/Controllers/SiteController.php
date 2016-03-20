@@ -83,4 +83,47 @@ class SiteController extends Controller
 	}
 
 
+	public function partTwo(Request $request){
+
+		$error = [];	
+		$output = [];//initialiase an empty mover instructions array
+
+		if ($request->isMethod('post')) {
+			$content = $request->input('instruct');
+			$content = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "", $content); //fix content if there are windows CRLF or tabs and spaces
+			if(preg_match("/([0-9]*)\s([0-9]*)\s([0-9]*)/", $content)) { 
+				list($mow_col,$mow_row,$mowers) = preg_split("/ /", $content); 
+				$gi = new GI();
+		        $lawnmowers = $gi->generateEfficientInstructions($mow_col,$mow_row,$mowers);
+		        $output = [];
+		        foreach($lawnmowers as $mower){
+		            $output[] = $mower['address']['col']." ".$mower['address']['row']." ".$mower['address']['dir']."<br>".$mower['command'];
+		        }
+
+
+
+			} else {
+				$error[] = "Instruction not provided in the right format";
+			}
+
+
+		}
+
+				// template data to send to the template
+		$template_vars = [
+			'output' => $output,
+			'instruct' => $request->input('instruct'),
+			'errors' => $error
+		];
+
+		return View::make('site.parttwo', $template_vars);
+
+
+	}
+
+
+
+
+
+
 }

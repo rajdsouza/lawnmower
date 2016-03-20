@@ -14,7 +14,7 @@ class LawnController extends Controller
     /**
      * Get Information of a given Lawn.
      *
-     * @return \Illuminate\Http\Response
+     * @return json
      */
     public function getIndex($id){
 
@@ -38,12 +38,10 @@ class LawnController extends Controller
     /**
      * Create a Lawn.
      *
-     * @return \Illuminate\Http\Response
+     * @return json
      */
     public function postIndex(Request $request)
     {
-
-        //print_r($request);
 
         if ($request->isMethod('post')) {
 
@@ -70,7 +68,7 @@ class LawnController extends Controller
     /**
      * Delete a Lawn.
      *
-     * @return \Illuminate\Http\Response
+     * @return json
      */
     public function destroy($id){
 
@@ -90,7 +88,7 @@ class LawnController extends Controller
     /**
      * Get execution for the given lawn
      *
-     * @return \Illuminate\Http\Response
+     * @return json
      */
     public function postExecute($id){
 

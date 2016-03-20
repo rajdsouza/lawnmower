@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     return Redirect::to('/partone');
 });
 
 /*
@@ -30,8 +30,8 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
-
 Route::match(['get', 'post'], '/partone', 'SiteController@partOne');
+Route::match(['get', 'post'], '/parttwo', 'SiteController@partTwo');
 
 
 Route::get('/lawn/{id}', 'LawnController@getIndex');
