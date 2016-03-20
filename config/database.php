@@ -1,5 +1,19 @@
 <?php
 
+//heroku databse settings if its hosted on heroku else use local .env
+$url = getenv("CLEARDB_DATABASE_URL");
+if($url != ""){
+    $db_cred = parse_url($url);
+
+    putenv("DB_HOST=".$db_cred['host']);
+    putenv("DB_DATABASE=".substr($db_cred['path'],1));
+    putenv("DB_USERNAME=".$db_cred['user']);
+    putenv("DB_PASSWORD=".$db_cred['pass']);
+}
+
+
+
+
 return [
 
     /*
