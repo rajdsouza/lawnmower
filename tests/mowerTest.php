@@ -17,7 +17,7 @@ class mowerTest extends TestCase
     public function test_mower_movement()
     {
 
-        $mower = new Mower(['col' => 1,'row' => 2],'N');
+        $mower = new Mower(['col' => 1,'row' => 2],'N',['col' => 5,'row' => 5]);
 
         $output = [];
 
@@ -32,7 +32,7 @@ class mowerTest extends TestCase
         $output[] = $result['address']['col'] .' '.$result['address']['row'] .' '.$result['direction'];
 
    
-        $mower = new Mower(['col' => 3,'row' => 3],'E');
+        $mower = new Mower(['col' => 3,'row' => 3],'E',['col' => 5,'row' => 5]);
 
 
         $actions = 'MMRMMRMRRM';

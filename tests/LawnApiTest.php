@@ -13,7 +13,7 @@ class LawnApiTest extends TestCase
      */
     public function test_get_home()
     {
-    	$this->call('GET', '/', [], [], [], [], '{"width":5,"height":5}');
+    	$this->call('GET', '/partone');
 
         $this->assertResponseOk();
 
