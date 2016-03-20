@@ -33,7 +33,7 @@ PartOne
 @endif
 
 @if(count($errors))
-<div class="panel panel-default">
+<div class="panel panel-warning">
 	<div class="panel-heading"><b>Errors:</b></div>
   <div class="panel-body">
   	@foreach($errors as $v)
