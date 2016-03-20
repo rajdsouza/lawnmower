@@ -46,42 +46,42 @@ class Mower {
     }
 
     /**
-     * Create a imaginary lawn to be mowed so it can be validated before the move if the block exists
-     * @param type $block_size
+     * Sets the lawns dimentions
+     * @param array $blocksize [col,row]
      */
-    public function setBlockToMow($block_size = array()) {
-        $rowToBeCreated = isset($block_size['rows']) ? $block_size['rows'] : 0;
-        $colToBeCreated = isset($block_size['cols']) ? $block_size['cols'] : 0;
-
-        $block = [];
-
-        for ($i = 0; $i < $rowToBeCreated; $i++) {
-            for ($j = 0; $j < $colToBeCreated; $j++) {
-                $block[$i][$j] = ['col' => $j, 'row' => $rowToBeCreated - ($i + 1)];
-            }
-        }
-
-        $this->block = $block;
+    public function setBlockSize($blocksize) {
+        $this->block = $blocksize;
     }
+
 
     /**
      * Set the address of the mower after the command move is triggered
      */
     private function move() {
+
+        
         switch ($this->direction) {
             case 'N':
-                $this->address['row'] ++; // add rows on move to north
+                    if($this->address['row'] == $this->block['col']){return false;}  //add validation to the move so the mower will not go out of the lawn due to human error
+                    $this->address['row'] ++; // add rows on move to north
                 break;
             case 'E':
+                if($this->address['col'] == $this->block['col']){return false;}  //add validation to the move so the mower will not go out of the lawn due to human error
                 $this->address['col'] ++; // add cols on move to east
                 break;
             case 'S':
+                if($this->address['row'] == 0){return false;}  //add validation to the move so the mower will not go out of the lawn due to human error
                 $this->address['row'] --; // deduct rows on move to south
                 break;
             case 'W':
+                if($this->address['col'] == 0){return false;}  //add validation to the move so the mower will not go out of the lawn due to human error
                 $this->address['col'] --; // deduct rows on move to west
                 break;
         }
+
+
+        return true;
+
     }
 
     /**
@@ -134,7 +134,11 @@ class Mower {
 
         switch ($command) {
             case 'M':
-                $this->move();
+                $ret = $this->move();
+                if(!$ret){
+                    $this->errors = "Could not move. Lawn is smaller than you think";
+                }
+                
                 break;
             case 'R':
                 $this->turn('R');
