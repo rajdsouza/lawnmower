@@ -15,7 +15,7 @@ PartOne
 {{ Form::open() }}
   <div class="form-group">
     <label for="instruct">Input</label>
-    <textarea class="form-control" rows="10" name="instruct" placeholder="Mower Instructions" >{{$instruct}}</textarea>
+    <textarea class="form-control" rows="10" name="instruct" placeholder="Please insert you lawn dimention and count of mowers. See example input below" >{{$instruct}}</textarea>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
@@ -23,7 +23,7 @@ PartOne
 
 
 @if(count($output))
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading"><b>Output:</b></div>
   <div class="panel-body">
 	@foreach($output as $k => $v)
@@ -43,5 +43,14 @@ PartOne
 	</div>
 </div>
 @endif
+
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Example Input:</b></div>
+  	<div class="panel-body">
+  		<pre>5 5 3</pre>
+	</div>
+</div>
+
 
 @stop

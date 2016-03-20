@@ -30,7 +30,7 @@ class SiteController extends Controller
 
 			$lines = array_filter($lines);  //remove empty or null lines 
 			
-			if(preg_match("/([0-9]*)\s([0-9]*)/", $lines[0])) { // check if the first line dimentions are corrrect
+			if(preg_match("/([0-9]+)\s([0-9]+)/", $lines[0])) { // check if the first line dimentions are corrrect
 
 				list($lawn_col,$lawn_row) = preg_split("/ /", $lines[0]);//get lawn dimentions 
 				$blocksize = ['col' => $lawn_col, 'row' => $lawn_row];
@@ -91,7 +91,9 @@ class SiteController extends Controller
 		if ($request->isMethod('post')) {
 			$content = $request->input('instruct');
 			$content = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "", $content); //fix content if there are windows CRLF or tabs and spaces
-			if(preg_match("/([0-9]*)\s([0-9]*)\s([0-9]*)/", $content)) { 
+			if(preg_match("/([0-9]+)\s([0-9]+)\s([0-9]+)/", $content)) {
+
+
 				list($mow_col,$mow_row,$mowers) = preg_split("/ /", $content); 
 				$gi = new GI();
 		        $lawnmowers = $gi->generateEfficientInstructions($mow_col,$mow_row,$mowers);

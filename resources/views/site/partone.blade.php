@@ -14,7 +14,7 @@ PartOne
 {{ Form::open() }}
   <div class="form-group">
     <label for="instruct">Input</label>
-    <textarea class="form-control" rows="10" name="instruct" placeholder="Mower Instructions" >{{$instruct}}</textarea>
+    <textarea class="form-control" rows="10" name="instruct" placeholder="Please Input Lawn Mowing Instructions" >{{$instruct}}</textarea>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
@@ -22,7 +22,7 @@ PartOne
 
 
 @if(count($mi))
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading"><b>Output:</b></div>
   <div class="panel-body">
 	@foreach($mi as $k => $v)
@@ -42,5 +42,17 @@ PartOne
 	</div>
 </div>
 @endif
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Example Input:</b></div>
+  	<div class="panel-body">
+  		<pre>5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM</pre>
+	</div>
+</div>
+
 
 @stop
