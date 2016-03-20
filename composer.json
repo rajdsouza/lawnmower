@@ -7,14 +7,16 @@
     "require": {
         "php": ">=5.5.30",
         "laravel/framework": "5.2.*",
-        "laravelcollective/html": "5.2.*"
+        "laravelcollective/html": "5.2.*",
+        "composer-plugin-api": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
         "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "symfony/dom-crawler": "2.8.*|3.0.*",
+        "heroku/heroku-buildpack-php": "*"
     },
     "autoload": {
         "classmap": [
@@ -29,6 +31,16 @@
             "tests/TestCase.php"
         ]
     },
+    "repositories": [
+    {
+        "type": "composer",
+        "url": "https://packagist.org",
+        "options": {
+                "ssl": {
+                    "verify_peer": false
+                }
+            }
+    }],
     "scripts": {
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
