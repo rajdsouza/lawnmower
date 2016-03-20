@@ -152,6 +152,23 @@ class Mower {
         }
     }
 
+    /**
+     * execute the given command string
+     * @example MMMMMMMRMRMMMMM
+     * @param string $command
+     */
+    public function execute($command){
+
+        $actions = str_split($command);
+
+        foreach ($actions as $action) {
+            $this->mowerAction($action);
+        }
+
+        return $this->getCurrentPosition();
+
+    }
+
 }
 
 ?>

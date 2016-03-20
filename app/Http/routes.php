@@ -31,7 +31,9 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-//Route::delete('/lawn/{id}', 'LawnController@deleteIndex');
+Route::match(['get', 'post'], '/partone', 'SiteController@partOne');
+
+
 Route::get('/lawn/{id}', 'LawnController@getIndex');
 Route::post('/lawn', 'LawnController@postIndex');
 Route::post('/lawn/{id}/execute', 'LawnController@postExecute');
