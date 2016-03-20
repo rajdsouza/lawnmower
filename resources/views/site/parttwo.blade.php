@@ -9,6 +9,8 @@ PartOne
 
 @section('content')
 
+<h1> Part 2 </h1>
+
 
 {{ Form::open() }}
   <div class="form-group">
