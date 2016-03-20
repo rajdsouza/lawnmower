@@ -19,6 +19,8 @@ PartOne
 </form>
 <br>
 
+
+@if(count($mi))
 <div class="panel panel-default">
 	<div class="panel-heading"><b>Output:</b></div>
   <div class="panel-body">
@@ -27,8 +29,9 @@ PartOne
 	@endforeach
 	</div>
 </div>
+@endif
 
-
+@if(count($errors))
 <div class="panel panel-default">
 	<div class="panel-heading"><b>Errors:</b></div>
   <div class="panel-body">
@@ -37,5 +40,6 @@ PartOne
 	@endforeach
 	</div>
 </div>
+@endif
 
 @stop

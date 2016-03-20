@@ -16,7 +16,7 @@ class SiteController extends Controller
 
 	public function partOne(Request $request){
 
-		$error = "";	
+		$error = [];	
 		$mi = [];//initialiase an empty mover instructions array
 
 		if ($request->isMethod('post')) {
@@ -30,33 +30,48 @@ class SiteController extends Controller
 
 			$lines = array_filter($lines);  //remove empty or null lines 
 			
-			list($lawn_col,$lawn_row) = preg_split("/ /", $lines[0]);//get lawn dimentions 
-			$blocksize = ['col' => $lawn_col, 'row' => $lawn_row];
-			array_shift($lines);//remove lawn dimentions from lines
+			if(preg_match("/([0-9]*)\s([0-9]*)/", $lines[0])) { // check if the first line dimentions are corrrect
 
-			$count_mowers = (count($lines)/2); 
-			
-			for ($i=0; $i < $count_mowers; $i++) { 
+				list($lawn_col,$lawn_row) = preg_split("/ /", $lines[0]);//get lawn dimentions 
+				$blocksize = ['col' => $lawn_col, 'row' => $lawn_row];
+				array_shift($lines);//remove lawn dimentions from lines
+
+				$count_mowers = (count($lines)/2); 
 				
-				list($mow_col,$mow_row,$dir) = preg_split("/ /", $lines[0]);
-				$address = ['col' => $mow_col, 'row' => $mow_row];
-				array_shift($lines);
-				$command = $lines[0];
-				array_shift($lines);
+				for ($i=0; $i < $count_mowers; $i++) { 
+					
+					if(preg_match("/([0-9]*)\s([0-9])*\s([A-Za-z])/", $lines[0])) {  // check mover address if provided in the same pattern
+						list($mow_col,$mow_row,$dir) = preg_split("/ /", $lines[0]); 
+						$dir = strtoupper($dir);
+						$address = ['col' => $mow_col, 'row' => $mow_row];
+						array_shift($lines);
+						$command = strtoupper($lines[0]); //TODO: Add more validation to fix if lines exist or format are correct for other lines
+						array_shift($lines);
 
-				$new_mover = new Mower($address,$dir,$blocksize);
-				$new_mover->execute($command);
+						$new_mover = new Mower($address,$dir,$blocksize);
+						$new_mover->execute($command);
 
-				$mi[] = $new_mover->getCurrentPosition();
+						$mi[] = $new_mover->getCurrentPosition();
 
-				if($new_mover->errors != ""){
-					$error[($i+1)] = "Mover ".($i+1).": ".$new_mover->errors;
-				}
-				
-			}			
+						if($new_mover->errors != ""){
+							$error[] = "Mover ".($i+1).": ".$new_mover->errors;
+						}
+
+
+					} else {
+
+						$error[] = "Mover ".($i+1).": Mover location is not defined correctly";
+					}	
+
+					
+					
+				}		
+			} else {
+				$error[] = "Something not right with the lawn dimentions. Please edit it and submit again";
+			}	
 
 		} 
-
+		// template data to send to the template
 		$template_vars = [
 			'mi' => $mi,
 			'instruct' => $request->input('instruct'),
