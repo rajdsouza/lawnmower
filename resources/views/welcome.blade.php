@@ -22,7 +22,6 @@
             .container {
                 text-align: center;
                 display: table-cell;
-                vertical-align: middle;
             }
 
             .content {
@@ -37,8 +36,23 @@
     </head>
     <body>
         <div class="container">
+            <div>
+                    <a>Part1</a>
+                    <a>Part2</a>
+
+            </div>
             <div class="content">
-                <div class="title">Laravel 5</div>
+            <h3>Part 1</h3>
+
+
+            Input:
+            <br><textarea cols="50" rows="10"></textarea>
+
+            <br/>
+            Output:
+            <div></div>
+
+
             </div>
         </div>
     </body>
