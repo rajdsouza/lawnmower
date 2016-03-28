@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-     return Redirect::to('/partone');
-});
+Route::match(['get', 'post'], '/', 'HomeController@index');
 
 /*
 |--------------------------------------------------------------------------
