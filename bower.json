@@ -1,0 +1,9 @@
+{
+  "name": "lawnmower",
+  "dependencies": {
+    "isomer": "^0.2.4",
+    "jquery": "^2.2.2",
+    "bootstrap": "^3.3.6",
+    "crafty": "^0.7.1"
+  }
+}

@@ -42,6 +42,9 @@
             }
     }],
     "scripts": {
+        "compile": [
+            "bower install"
+        ],
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ],
