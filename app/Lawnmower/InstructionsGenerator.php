@@ -139,11 +139,16 @@ class InstructionsGenerator {
         return $command;
     }
 
-    /*
-     * Generate optimal automated move based so no mower does more than it should
-     * TODO
+    /**
+     * Generate a set of instructions to mow a lawn with optimal set
+     * provided a size of the lawn and how many mowers are to be used
+     * 
+     * @param int $cols
+     * @param int $rows
+     * @param int $mowers
+     * @return array
      */
-    public static function generateOptimalInstructions($cols, $rows, $mowers) {
+    public function generateOptimalInstructions($cols, $rows, $mowers) {
 
         $total_blocks = ($cols + 1) * ($rows + 1);
         $max_blocks = ($total_blocks / $mowers);
@@ -152,22 +157,44 @@ class InstructionsGenerator {
         $direction = 'N'; //default direction to be assumed
         $mowed_blocks_by_one_mover = 0;
         $mower_no = 1;
+        $address = [];
+        //$address[$mower_no] = new Address(0,0,'N');
+        $idx = 0;
+
+
 
         for ($col = 0; $col < $cols + 1; $col++) {
-            for ($row = 0; $row < $rows + 1; $row++) {
-                $mower_no = ($mowed_blocks_by_one_mover == $max_blocks) ? ($mower_no + 1) : $mower_no;
 
-                if ($mowed_blocks_by_one_mover == $max_blocks) { //reset blocks mowed by a mower
+      
+
+
+            for ($row = 0; $row < $rows + 1; $row++) {
+                if ($mowed_blocks_by_one_mover >= $max_blocks) { //reset blocks mowed by a mower
                     $mowed_blocks_by_one_mover = 0;
+                    $mower_no++;
+                    $direction = 'N';
                 }
+
                 $mowcol = $col;
                 $mowrow = ($direction == "N") ? $row : ($rows) - $row;
                 //echo "$mowcol $mowrow $direction $mower_no\n";
+
+
+                if (isset($address[$mower_no])) {
+                    $address[$mower_no]->setAddress($mowcol, $mowrow, $direction);
+                } else {
+                    $address[$mower_no] = new Address($mowcol, $mowrow, $direction);
+                }
+
                 $mowed_blocks_by_one_mover++;
             }
 
             $direction = ($direction == "N") ? "S" : "N";
         }
+
+
+        return $this->processAddresses($address);
     }
+   
 
 }
